@@ -61,8 +61,8 @@ class IndexController extends Controller
             setcookie('token',$token,time()+86400,'/','wangby.cn',false,true);
             setcookie('uid',$uid,time()+86400,'/','wangby.cn',false,true);
             setcookie('uname',$name,time()+86400,'/','wangby.cn',false,true);
-            $request->session()->put('u_token',$token);
-            $request->session()->put('uid',$uid);
+//            $request->session()->put('u_token',$token);
+//            $request->session()->put('uid',$uid);
             $redis_key_token='str:u:token:'.$uid;
             Redis::del($redis_key_token);
             Redis::hset($redis_key_token,'web',$token);
@@ -98,10 +98,10 @@ class IndexController extends Controller
                 Redis::del($redis_key_token);
                 Redis::hset($redis_key_token,'web',$token);
                 echo "登录成功";
-                header('refresh:1;url=http://dzh.wangby.cn');
+                header('refresh:1;url=https://dzh.wangby.cn');
             } else {
                 echo "账号或密码错误";
-                header('refresh:1;url=/login');
+                header('refresh:1;url=http://psp.wangby.cn/login');
             }
         }
     }
