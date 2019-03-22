@@ -105,8 +105,45 @@ class IndexController extends Controller
             }
         }
     }
-    public function receive(){
-        echo "<pre>";print_r($_POST);echo "</pre>";
+    public function receive(Request $request){
+        $uname=$request->input('uname');
+        $pwd=$request->input('pwd');
+        $where = [
+            'name' =>  $uname,
+        ];
+        if(empty($uname)|| empty($pwd)){
+            $response=[
+                'error'=>400,
+                'msg'=>'账号或密码不能为空'
+            ];
+        }
+        $res = UserModel::where($where)->first();
+        if ($res) {
+            if (password_verify($pwd, $res->pwd)){
+                $token = substr(md5(time()) . mt_rand(1, 9999), 10, 10);
+                setcookie('uid', $res->u_id, time() + 86400, '/', 'wangby.com', false, true);
+                setcookie('token', $token, time() + 86400, '/', 'wangby.com', false, true);
+//                $request->session()->put('u_token', $token);
+//                $request->session()->put('uid', $res->u_id);
+//                echo $token;die;
+                $redis_key_token='str:u:token:web:'.$res->u_id;
+                Redis::set($redis_key_token,$token);
+                Redis::expire($redis_key_token,60*60*24*7);
+                $response=[
+                    'error'=>0,
+                    'msg'=>'登录成功',
+                    'token'=>$token
+                ];
+            } else {
+                $response=[
+                    'error'=>500,
+                    'msg'=>'登录失败'
+                ];
+            }
+
+        }
+        return json_encode($response);
+
     }
 
 
