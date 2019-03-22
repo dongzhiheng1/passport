@@ -94,9 +94,9 @@ class IndexController extends Controller
 //                $request->session()->put('u_token', $token);
 //                $request->session()->put('uid', $res->u_id);
 //                echo $token;die;
-                $redis_key_token='str:u:token:web:'.$res->u_id;
+                $redis_key_token='str:u:token:'.$res->u_id;
                 Redis::del($redis_key_token);
-                Redis::hset($redis_key_token,'web',$token);
+                Redis::hest($redis_key_token,'web',$token);
                 echo "登录成功";
                 header('refresh:1;url=http://www.dongzhiheng.com');
             } else {
@@ -129,9 +129,9 @@ class IndexController extends Controller
 //                $request->session()->put('u_token', $token);
 //                $request->session()->put('uid', $res->u_id);
 //                echo $token;die;
-                $redis_key_token='str:u:token:android:'.$res->u_id;
+                $redis_key_token='str:u:token:'.$res->u_id;
                 Redis::del($redis_key_token);
-                Redis::hset($redis_key_token,'android',$token);
+                Redis::hest($redis_key_token,'android',$token);
                 $response=[
                     'error'=>0,
                     'msg'=>'登录成功',
