@@ -58,15 +58,15 @@ class IndexController extends Controller
         //var_dump($uid);
         if($uid){
             $token=substr(md5(time().mt_rand(1,9999)),10,10);
-            setcookie('token',$token,time()+86400,'/','dongzhiheng.com',false,true);
-            setcookie('uid',$uid,time()+86400,'/','dongzhiheng.com',false,true);
-            setcookie('uname',$name,time()+86400,'/','dongzhiheng.com',false,true);
+            setcookie('token',$token,time()+86400,'/','wangby.cn',false,true);
+            setcookie('uid',$uid,time()+86400,'/','wangby.cn',false,true);
+            setcookie('uname',$name,time()+86400,'/','wangby.cn',false,true);
             $request->session()->put('u_token',$token);
             $request->session()->put('uid',$uid);
-            $redis_key_token='str:u:token:web:'.$uid;
-            Redis::set($redis_key_token,$token);
-            Redis::expire($redis_key_token,60*60*24*7);
-            header('refresh:1;url=http://www.dongzhiheng.com');
+            $redis_key_token='str:u:token:'.$uid;
+            Redis::del($redis_key_token);
+            Redis::hset($redis_key_token,'web',$token);
+            header('refresh:1;url=https://dzh.wangby.cn');
             echo "注册成功，正在跳转";
         }else{
             echo "注册失败";
@@ -89,8 +89,8 @@ class IndexController extends Controller
         if ($res) {
             if (password_verify($u_pwd, $res->pwd)){
                 $token = substr(md5(time()) . mt_rand(1, 9999), 10, 10);
-                setcookie('uid', $res->u_id, time() + 86400, '/', 'dongzhiheng.com', false, true);
-                setcookie('token', $token, time() + 86400, '/', 'dongzhiheng.com', false, true);
+                setcookie('uid', $res->u_id, time() + 86400, '/', 'wangby.cn', false, true);
+                setcookie('token', $token, time() + 86400, '/', 'wangby.cn', false, true);
 //                $request->session()->put('u_token', $token);
 //                $request->session()->put('uid', $res->u_id);
 //                echo $token;die;
@@ -98,7 +98,7 @@ class IndexController extends Controller
                 Redis::del($redis_key_token);
                 Redis::hset($redis_key_token,'web',$token);
                 echo "登录成功";
-                header('refresh:1;url=http://www.dongzhiheng.com');
+                header('refresh:1;url=http://dzh.wangby.cn');
             } else {
                 echo "账号或密码错误";
                 header('refresh:1;url=/login');
