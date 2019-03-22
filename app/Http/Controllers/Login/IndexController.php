@@ -10,7 +10,11 @@ class IndexController extends Controller
 {
     //注册
     public function register(){
-        return view('reg.reg');
+        $redirect=$_GET['redirect'] ?? env('SHOP_URL');
+        $data=[
+            'redirect'=>$redirect
+        ];
+        return view('reg.reg',$data);
     }
     public function doRegister(Request $request){
         $name=$request->input('u_name');
@@ -40,7 +44,7 @@ class IndexController extends Controller
         if($res){
             die("账号已存在");
         }
-
+        $r=$request->input('redirect') ?? env('SHOP_URL');
         $pwd=password_hash($pwd1,PASSWORD_BCRYPT);
 //	    echo $pwd;die;
 //	    $pwd=password_verify($pwd1,'$2y$10$TGftIAn6wDc.mBF1Z0Mh8e8mxskkKbsOh8GCDnohgdhE2J/vujlCC');
@@ -68,6 +72,7 @@ class IndexController extends Controller
             Redis::hset($redis_key_token,'web',$token);
             header('refresh:1;url=https://dzh.wangby.cn');
             echo "注册成功，正在跳转";
+            header("refresh:1;$r");
         }else{
             echo "注册失败";
         }
@@ -75,13 +80,18 @@ class IndexController extends Controller
     //登录
     public function login()
     {
-        return view('login.login');
+        $redirect=$_GET['redirect'] ?? env('SHOP_URL');
+        $data=[
+            'redirect'=>$redirect
+        ];
+        return view('login.login',$data);
     }
 
     public function doLogin(Request $request)
     {
         $u_name = $request->input('u_name');
         $u_pwd = $request->input('u_pwd');
+        $url=$request->input('redirect') ?? env('SHOP_URL');
         $where = [
             'name' => $u_name,
         ];
@@ -98,7 +108,7 @@ class IndexController extends Controller
                 Redis::del($redis_key_token);
                 Redis::hset($redis_key_token,'web',$token);
                 echo "登录成功";
-                header('refresh:1;url=https://dzh.wangby.cn');
+                header("refresh:1;$url");
             } else {
                 echo "账号或密码错误";
                 header('refresh:1;url=http://psp.wangby.cn/login');
@@ -124,8 +134,8 @@ class IndexController extends Controller
         if ($res) {
             if (password_verify($pwd, $res->pwd)){
                 $token = substr(md5(time()) . mt_rand(1, 9999), 10, 10);
-//                setcookie('uid', $res->u_id, time() + 86400, '/', 'wangby.com', false, true);
-//                setcookie('token', $token, time() + 86400, '/', 'wangby.com', false, true);
+                setcookie('uid', $res->u_id, time() + 86400, '/', 'wangby.com', false, true);
+                setcookie('token', $token, time() + 86400, '/', 'wangby.com', false, true);
 //                $request->session()->put('u_token', $token);
 //                $request->session()->put('uid', $res->u_id);
 //                echo $token;die;
@@ -147,6 +157,12 @@ class IndexController extends Controller
         }
         return json_encode($response);
 
+    }
+    public function quit(){
+        setcookie('uid', null, time() + 86400, '/', 'wangby.com', false, true);
+        setcookie('token', null, time() + 86400, '/', 'wangby.com', false, true);
+        echo "退出成功";die;
+        header('refresh:1;url=http://dzh.wangby.cn');
     }
 
 

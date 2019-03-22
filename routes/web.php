@@ -23,3 +23,4 @@ Route::get('/register','Login\IndexController@register');
 Route::post('/doRegister','Login\IndexController@doRegister');
 
 Route::post('/receive','Login\IndexController@receive');
+Route::get('/quit','Login\IndexController@quit');

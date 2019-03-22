@@ -2,6 +2,7 @@
 @section('content')
     <form class="form-horizontal" method="post" action="/doRegister">
         {{csrf_field()}}
+        <input type="hidden" value="{{$redirect}}" name="redirect">
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">账号</label>
             <div class="col-sm-10">
