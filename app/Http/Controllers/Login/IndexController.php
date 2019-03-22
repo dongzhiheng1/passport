@@ -108,6 +108,8 @@ class IndexController extends Controller
     public function receive(Request $request){
         $uname=$request->input('uname');
         $pwd=$request->input('pwd');
+//        echo $uname;echo "<br>";
+//        echo $pwd;die;
         $where = [
             'name' =>  $uname,
         ];
@@ -118,11 +120,12 @@ class IndexController extends Controller
             ];
         }
         $res = UserModel::where($where)->first();
+//        echo $res;die;
         if ($res) {
             if (password_verify($pwd, $res->pwd)){
                 $token = substr(md5(time()) . mt_rand(1, 9999), 10, 10);
-                setcookie('uid', $res->u_id, time() + 86400, '/', 'wangby.com', false, true);
-                setcookie('token', $token, time() + 86400, '/', 'wangby.com', false, true);
+//                setcookie('uid', $res->u_id, time() + 86400, '/', 'wangby.com', false, true);
+//                setcookie('token', $token, time() + 86400, '/', 'wangby.com', false, true);
 //                $request->session()->put('u_token', $token);
 //                $request->session()->put('uid', $res->u_id);
 //                echo $token;die;
