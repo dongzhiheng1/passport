@@ -134,8 +134,8 @@ class IndexController extends Controller
         if ($res) {
             if (password_verify($pwd, $res->pwd)){
                 $token = substr(md5(time()) . mt_rand(1, 9999), 10, 10);
-                setcookie('uid', $res->u_id, time() + 86400, '/', 'wangby.com', false, true);
-                setcookie('token', $token, time() + 86400, '/', 'wangby.com', false, true);
+                setcookie('uid', $res->u_id, time() + 86400, '/', 'wangby.cn', false, true);
+                setcookie('token', $token, time() + 86400, '/', 'wangby.cn', false, true);
 //                $request->session()->put('u_token', $token);
 //                $request->session()->put('uid', $res->u_id);
 //                echo $token;die;
@@ -159,8 +159,8 @@ class IndexController extends Controller
 
     }
     public function quit(){
-        setcookie('uid', null, time()-1, '/', 'wangby.com', false, true);
-        setcookie('token', null, time()-1, '/', 'wangby.com', false, true);
+        setcookie('uid', null, time()-1, '/', 'wangby.cn', false, true);
+        setcookie('token', null, time()-1, '/', 'wangby.cn', false, true);
         echo "退出成功";
         header('refresh:1;url=http://dzh.wangby.cn');
     }
