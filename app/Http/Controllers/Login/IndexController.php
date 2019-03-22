@@ -105,4 +105,9 @@ class IndexController extends Controller
             }
         }
     }
+    public function receive(){
+        echo "<pre>";print_r($_POST);echo "</pre>";
+    }
+
+
 }
