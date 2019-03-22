@@ -129,7 +129,7 @@ class IndexController extends Controller
 //                $request->session()->put('u_token', $token);
 //                $request->session()->put('uid', $res->u_id);
 //                echo $token;die;
-                $redis_key_token='str:u:token:web:'.$res->u_id;
+                $redis_key_token='str:u:token:android:'.$res->u_id;
                 Redis::del($redis_key_token);
                 Redis::hset($redis_key_token,'android',$token);
                 $response=[

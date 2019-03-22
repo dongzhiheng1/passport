@@ -63,7 +63,7 @@
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Login/IndexController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.46996465">
-              <caret line="98" column="59" selection-start-line="98" selection-start-column="59" selection-end-line="98" selection-end-column="59" />
+              <caret line="134" column="27" selection-start-line="134" selection-start-column="27" selection-end-line="134" selection-end-column="27" />
               <folding>
                 <element signature="e#45#69#0#PHP" expanded="true" />
               </folding>
@@ -428,7 +428,7 @@
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Login/IndexController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.46996465">
-          <caret line="98" column="59" selection-start-line="98" selection-start-column="59" selection-end-line="98" selection-end-column="59" />
+          <caret line="134" column="27" selection-start-line="134" selection-start-column="27" selection-end-line="134" selection-end-column="27" />
           <folding>
             <element signature="e#45#69#0#PHP" expanded="true" />
           </folding>
