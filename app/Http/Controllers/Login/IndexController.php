@@ -96,7 +96,7 @@ class IndexController extends Controller
 //                echo $token;die;
                 $redis_key_token='str:u:token:'.$res->u_id;
                 Redis::del($redis_key_token);
-                Redis::hest($redis_key_token,'web',$token);
+                Redis::hset($redis_key_token,'web',$token);
                 echo "登录成功";
                 header('refresh:1;url=http://www.dongzhiheng.com');
             } else {
@@ -131,7 +131,7 @@ class IndexController extends Controller
 //                echo $token;die;
                 $redis_key_token='str:u:token:'.$res->u_id;
                 Redis::del($redis_key_token);
-                Redis::hest($redis_key_token,'android',$token);
+                Redis::hset($redis_key_token,'android',$token);
                 $response=[
                     'error'=>0,
                     'msg'=>'登录成功',
