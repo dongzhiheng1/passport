@@ -159,8 +159,8 @@ class IndexController extends Controller
 
     }
     public function quit(){
-        setcookie('uid', null, time() + 86400, '/', 'wangby.com', false, true);
-        setcookie('token', null, time() + 86400, '/', 'wangby.com', false, true);
+        setcookie('uid', null, time()-1, '/', 'wangby.com', false, true);
+        setcookie('token', null, time()-1, '/', 'wangby.com', false, true);
         echo "退出成功";
         header('refresh:1;url=http://dzh.wangby.cn');
     }
