@@ -146,7 +146,8 @@ class IndexController extends Controller
                     'error'=>0,
                     'msg'=>'登录成功',
                     'token'=>$token,
-                    'user'=>$uname
+                    'user'=>$uname,
+                    'uid'=>$res->u_id
                 ];
             } else {
                 $response=[
